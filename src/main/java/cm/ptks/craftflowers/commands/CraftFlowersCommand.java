@@ -7,7 +7,8 @@ import cm.ptks.craftflowers.gui.SavedFlowerListGui;
 import cm.ptks.craftflowers.languages.I18n;
 import cm.ptks.craftflowers.languages.Messages;
 import cm.ptks.craftflowers.storage.SavedFlowerPot;
-import net.md_5.bungee.api.ChatColor;
+import cm.ptks.craftflowers.util.Text;
+import net.kyori.adventure.text.format.NamedTextColor;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -34,8 +35,8 @@ public class CraftFlowersCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if (args.length > 0 && (args[0].equalsIgnoreCase("version") || args[0].equalsIgnoreCase("v"))) {
             Player player = commandSender instanceof Player ? (Player) commandSender : null;
-            commandSender.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getPluginMeta().getVersion(), ChatColor.GREEN));
-            commandSender.sendMessage(CraftFlowers.prefix + Messages.getCommandServerVersion(player, plugin.getServer().getName() + " " + plugin.getServer().getVersion()));
+            commandSender.sendMessage(Text.prefixed(Messages.getCommandVersion(player, plugin.getPluginMeta().getVersion())));
+            commandSender.sendMessage(Text.prefixed(Messages.getCommandServerVersion(player, plugin.getServer().getName() + " " + plugin.getServer().getVersion())));
             return true;
         }
 
@@ -46,7 +47,7 @@ public class CraftFlowersCommand implements CommandExecutor, TabCompleter {
 
         if (args.length == 0) {
             if (!player.hasPermission("craftflowers.use")) {
-                player.sendMessage(CraftFlowers.prefix + I18n.translate(player, Messages.COMMANDS.NO_PERMISSION_USE));
+                player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.NO_PERMISSION_USE)));
                 return true;
             }
             CraftFlowersGui.openGui(player);
@@ -55,16 +56,16 @@ public class CraftFlowersCommand implements CommandExecutor, TabCompleter {
 
 
         if (args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("i")) {
-            player.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getPluginMeta().getVersion(), ChatColor.GREEN));
+            player.sendMessage(Text.prefixed(Messages.getCommandVersion(player, plugin.getPluginMeta().getVersion())));
 
-            player.sendMessage(CraftFlowers.prefix + Messages.getCommandAuthor(player, plugin.getPluginMeta().getAuthors().get(0)));
-            player.sendMessage(CraftFlowers.prefix + Messages.getCommandWebsite(player, plugin.getPluginMeta().getWebsite()));
+            player.sendMessage(Text.prefixed(Messages.getCommandAuthor(player, plugin.getPluginMeta().getAuthors().get(0))));
+            player.sendMessage(Text.prefixed(Messages.getCommandWebsite(player, plugin.getPluginMeta().getWebsite())));
             return true;
         }
 
         if (args[0].equalsIgnoreCase("save") || args[0].equalsIgnoreCase("s")) {
             if (!player.hasPermission("craftflowers.save")) {
-                player.sendMessage(CraftFlowers.prefix + ChatColor.RED + I18n.translate(player, Messages.COMMANDS.NO_PERMISSION_SAVE));
+                player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.NO_PERMISSION_SAVE), NamedTextColor.RED));
                 return true;
             }
 
@@ -76,21 +77,21 @@ public class CraftFlowersCommand implements CommandExecutor, TabCompleter {
 
                     plugin.getExecutorService().submit(() -> {
                         plugin.getFlowerStorage().saveFlower(name, player.getUniqueId(), flowerPot);
-                        player.sendMessage(CraftFlowers.prefix + I18n.translate(player, Messages.COMMANDS.SUCCESS_SAVE));
+                        player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.SUCCESS_SAVE)));
                     });
                 } else {
-                    player.sendMessage(CraftFlowers.prefix + ChatColor.RED + I18n.translate(player, Messages.COMMANDS.NEED_HOLD_CF_FLOWERPOT));
+                    player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.NEED_HOLD_CF_FLOWERPOT), NamedTextColor.RED));
                 }
                 return true;
             }
 
-            player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.SAVE_SYNTAX));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.SAVE_SYNTAX), NamedTextColor.GREEN));
             return true;
         }
 
         if (args[0].equalsIgnoreCase("load") || args[0].equalsIgnoreCase("l")) {
             if (!player.hasPermission("craftflowers.load")) {
-                player.sendMessage(CraftFlowers.prefix + ChatColor.RED + I18n.translate(player, Messages.COMMANDS.NO_PERMISSION_LOAD));
+                player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.NO_PERMISSION_LOAD), NamedTextColor.RED));
                 return true;
             }
 
@@ -98,51 +99,51 @@ public class CraftFlowersCommand implements CommandExecutor, TabCompleter {
                 plugin.getExecutorService().submit(() -> {
                     SavedFlowerPot flower = plugin.getFlowerStorage().getFlower(args[1], player.getUniqueId());
                     if (flower == null) {
-                        player.sendMessage(CraftFlowers.prefix + I18n.translate(player, Messages.COMMANDS.LOAD_NOT_FOUND));
+                        player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.LOAD_NOT_FOUND)));
                         return;
                     }
                     plugin.getServer().getScheduler().runTask(plugin, () -> {
                         player.getInventory().addItem(flower.getFlowerPot().createItemStack());
-                        player.sendMessage(CraftFlowers.prefix + Messages.getCommandSuccessLoad(player, args[1]));
+                        player.sendMessage(Text.prefixed(Messages.getCommandSuccessLoad(player, args[1])));
                     });
                 });
                 return true;
             }
 
-            player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.LOAD_SYNTAX));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.LOAD_SYNTAX), NamedTextColor.GREEN));
             return true;
         }
 
         if (args[0].equalsIgnoreCase("delete") || args[0].equalsIgnoreCase("d")) {
             if (!player.hasPermission("craftflowers.delete")) {
-                player.sendMessage(CraftFlowers.prefix + ChatColor.RED + I18n.translate(player, Messages.COMMANDS.NO_PERMISSION_DELETE));
+                player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.NO_PERMISSION_DELETE), NamedTextColor.RED));
                 return true;
             }
 
             if (args.length != 1 && args.length <= 2) {
                 plugin.getExecutorService().submit(() -> {
                     if (!plugin.getFlowerStorage().deleteFlower(args[1], player.getUniqueId())) {
-                        player.sendMessage(CraftFlowers.prefix + Messages.getCommandCantDelete(player, args[1]));
+                        player.sendMessage(Text.prefixed(Messages.getCommandCantDelete(player, args[1])));
                         return;
                     }
-                    player.sendMessage(CraftFlowers.prefix + Messages.getCommandSuccessDelete(player, args[1]));
+                    player.sendMessage(Text.prefixed(Messages.getCommandSuccessDelete(player, args[1])));
                 });
                 return true;
             }
 
-            player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.DELETE_SYNTAX));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.DELETE_SYNTAX), NamedTextColor.GREEN));
             return true;
         }
 
         if (args[0].equalsIgnoreCase("list")) {
             if (!player.hasPermission("craftflowers.use")) {
-                player.sendMessage(CraftFlowers.prefix + I18n.translate(player, Messages.COMMANDS.NO_PERMISSION_LIST));
+                player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.NO_PERMISSION_LIST)));
                 return true;
             }
             plugin.getExecutorService().submit(() -> {
                 List<SavedFlowerPot> savedFlowers = plugin.getFlowerStorage().getSavedFlowers(player.getUniqueId());
                 if (savedFlowers.size() == 0) {
-                    player.sendMessage(CraftFlowers.prefix + I18n.translate(player, Messages.COMMANDS.NO_SAVED_FLOWERS));
+                    player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.NO_SAVED_FLOWERS)));
                     return;
                 }
                 plugin.getServer().getScheduler().runTask(plugin, () -> SavedFlowerListGui.openGui(player, savedFlowers));
@@ -152,16 +153,16 @@ public class CraftFlowersCommand implements CommandExecutor, TabCompleter {
 
 
         if (!args[0].equalsIgnoreCase("help") && !args[0].equalsIgnoreCase("h")) {
-            player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.SYNTAX));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.SYNTAX), NamedTextColor.GREEN));
         } else {
-            player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.OPEN_GUI));
-            player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.SAVE));
-            player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.LOAD));
-            player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.DELETE));
-            player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.INFO));
-            player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.VERSION));
-            player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.LIST));
-            player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.HELP));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.OPEN_GUI), NamedTextColor.GREEN));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.SAVE), NamedTextColor.GREEN));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.LOAD), NamedTextColor.GREEN));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.DELETE), NamedTextColor.GREEN));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.INFO), NamedTextColor.GREEN));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.VERSION), NamedTextColor.GREEN));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.LIST), NamedTextColor.GREEN));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.HELP), NamedTextColor.GREEN));
         }
 
         return true;

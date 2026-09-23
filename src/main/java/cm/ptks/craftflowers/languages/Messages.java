@@ -4,7 +4,6 @@ import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.type.Bamboo;
 import org.bukkit.entity.Player;
 
-import net.md_5.bungee.api.ChatColor;
 
 public final class Messages {
 
@@ -269,8 +268,8 @@ public final class Messages {
         return I18n.translate(player, COMMANDS.SERVER_VERSION).replace("<server>", serverVersion);
     }
 
-    public static String getCommandVersion(Player player, String version, ChatColor color) {
-        return I18n.translate(player, COMMANDS.VERSION).replaceAll("<version>", color + version);
+    public static String getCommandVersion(Player player, String version) {
+        return I18n.translate(player, COMMANDS.VERSION).replace("<version>", version);
     }
 
     public static String getCommandAuthor(Player player, String authors) {

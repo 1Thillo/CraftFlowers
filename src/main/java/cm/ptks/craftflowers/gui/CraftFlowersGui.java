@@ -9,6 +9,7 @@ import cm.ptks.craftflowers.flower.FlowerRegistry;
 import cm.ptks.craftflowers.languages.I18n;
 import cm.ptks.craftflowers.languages.Messages;
 import cm.ptks.craftflowers.util.ItemBuilder;
+import cm.ptks.craftflowers.util.Text;
 import fr.minuskube.inv.ClickableItem;
 import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
@@ -78,7 +79,7 @@ public class CraftFlowersGui implements InventoryProvider {
                 .setDisplayName(CraftFlowers.arrow + I18n.translate(player, Messages.GUI.CREATE_FLOWER))
                 .setTextureId("b056bc1244fcff99344f12aba42ac23fee6ef6e3351d27d273c1572531f").build(), event -> {
             if (flowerPot.getFlowers().size() == 0) {
-                player.sendMessage(CraftFlowers.prefix + I18n.translate(player, Messages.GUI.CANT_CREATE_EMPTY_FLOWER));
+                player.sendMessage(Text.prefixed(I18n.translate(player, Messages.GUI.CANT_CREATE_EMPTY_FLOWER)));
                 return;
             }
             player.getInventory().addItem(flowerPot.createItemStack());
