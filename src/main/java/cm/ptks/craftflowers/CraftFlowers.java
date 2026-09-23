@@ -5,14 +5,11 @@ import cm.ptks.craftflowers.languages.LanguageManager;
 import cm.ptks.craftflowers.languages.Messages;
 import cm.ptks.craftflowers.listeners.BlockPlaceListener;
 import cm.ptks.craftflowers.listeners.LeftClickListener;
-import cm.ptks.craftflowers.listeners.PlayerJoinListener;
 import cm.ptks.craftflowers.storage.FlowerStorage;
 import cm.ptks.craftflowers.storage.SqLiteStorage;
-import cm.ptks.craftflowers.util.version.UpdateChecker;
 import fr.minuskube.inv.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,8 +29,6 @@ public class CraftFlowers extends JavaPlugin {
 
     public static String prefix;
     public static String arrow;
-
-    private UpdateChecker versionChecker;
 
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -64,24 +59,11 @@ public class CraftFlowers extends JavaPlugin {
         }
 
         this.languageManager = new LanguageManager(this);
-        this.versionChecker = new UpdateChecker(this);
 
 
         new Metrics(this, 2877);
         this.registerListener();
         this.registerCommands();
-
-
-        if (versionChecker.isOutdated()) {
-            ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-            console.sendMessage(ChatColor.DARK_RED + "------------------[craftFlowers]------------------");
-            console.sendMessage(ChatColor.RED + "    Plugin is outdated!");
-            console.sendMessage(ChatColor.DARK_RED + "    Current version: " + ChatColor.RED + this.getPluginMeta()
-                    .getVersion() + ChatColor.DARK_GREEN + " The newest version: " + ChatColor.GREEN + this.versionChecker.getNewestVersion());
-            console.sendMessage(ChatColor.GOLD + "Download new version: " + ChatColor.YELLOW
-                    + "https://www.spigotmc.org/resources/craftflowers-1-16-port-allowed-by-main-developer.82407/");
-            console.sendMessage(ChatColor.DARK_RED + "--------------------------------------------------");
-        }
     }
 
     public static CraftFlowers getInstance() {
@@ -112,14 +94,9 @@ public class CraftFlowers extends JavaPlugin {
         return executorService;
     }
 
-    public UpdateChecker getVersionChecker() {
-        return versionChecker;
-    }
-
     private void registerListener() {
         Bukkit.getServer().getPluginManager().registerEvents(new BlockPlaceListener(this), this);
         Bukkit.getServer().getPluginManager().registerEvents(new LeftClickListener(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
     }
 
     private void registerCommands() {

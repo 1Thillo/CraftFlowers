@@ -304,11 +304,3 @@ ACTION:
 
   # edit the pot
   NO_PERMISSION_EDIT: "§cYou don't have the required permissions to edit this Flower!"
-
-  # join messages
-  OUTDATED_VERSION: "§cYou are running an outdated §2craftflowers §7version!"
-  CURRENT_VERSION: "§7Current version: §c<version>"
-  NEWEST_VERSION: "§7Newest version: §a<version>"
-  DOWNLOAD_NEW_VERSION: "§7Download new Version: §a<link>"
-  FAILED_CHECK_VERSION: "Failed to check for an update on Spigot."
-
