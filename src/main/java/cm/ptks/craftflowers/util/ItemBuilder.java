@@ -1,7 +1,5 @@
 package cm.ptks.craftflowers.util;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -10,10 +8,8 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.util.Base64;
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.util.UUID;
 
 public class ItemBuilder {
@@ -36,29 +32,15 @@ public class ItemBuilder {
             return this;
 
         SkullMeta headMeta = (SkullMeta) itemStack.getItemMeta();
-        byte[] encodedData = Base64.getEncoder().encode(String.format("{textures:{SKIN:{url:\"%s\"}}}",
-                "https://textures.minecraft.net/texture/" + textureId).getBytes());
 
         try {
             PlayerProfile playerProfile = Bukkit.createPlayerProfile(UUID.randomUUID(), "null");
             PlayerTextures textures = playerProfile.getTextures();
-            textures.setSkin(new URL("https://textures.minecraft.net/texture/" + textureId));
+            textures.setSkin(URI.create("https://textures.minecraft.net/texture/" + textureId).toURL());
             playerProfile.setTextures(textures);
             headMeta.setOwnerProfile(playerProfile);
-        } catch (Throwable e) {
-            //Support older versions
-
-            GameProfile profile = new GameProfile(UUID.randomUUID(), "null");
-
-            profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
-            try {
-                Method method = headMeta.getClass().getDeclaredMethod("setProfile", GameProfile.class);
-                method.setAccessible(true);
-                method.invoke(headMeta, profile);
-                method.setAccessible(false);
-            } catch (IllegalArgumentException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e1) {
-                e1.printStackTrace();
-            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
         itemStack.setItemMeta(headMeta);
 
