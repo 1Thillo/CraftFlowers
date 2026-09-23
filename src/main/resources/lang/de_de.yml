@@ -10,6 +10,9 @@ COMMANDS:
   AUTHOR: "§7Author: §2<author>"
   WEBSITE: "§7Website: §2<website>"
 
+  # /craftflowers version
+  SERVER_VERSION: "§7Server: §2<server>"
+
   # /craftflowers save
   NO_PERMISSION_SAVE: "§cDu bist nicht berechtigt diesen Befehl zu nutzen!"
   SUCCESS_SAVE: "Du hast den Blumentopf erfolgreich gespeichert."
@@ -39,6 +42,7 @@ COMMANDS:
     LOAD: "/craftflowers load <name> §8- §7Lädt eine gespeicherte Blume"
     DELETE: "/craftflowers delete <name> §8- §7Entfernt die gespeicherte Blume"
     INFO: "/craftflowers info §8- §7Zeigt Informationen über das Plugin"
+    VERSION: "/craftflowers version §8- §7Zeigt die Plugin- und Serverversion"
     LIST: "/craftflowers list §8- §7Öffnet eine gespeicherte Blumenliste gui"
     HELP: "/craftflowers help §8- §7Zeigt diesen Text an"
 

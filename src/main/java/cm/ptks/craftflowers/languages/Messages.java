@@ -14,6 +14,8 @@ public final class Messages {
 
         // /craftflowers info
         public static final String VERSION = "COMMANDS.VERSION";
+        // /craftflowers version
+        public static final String SERVER_VERSION = "COMMANDS.SERVER_VERSION";
         public static final String AUTHOR = "COMMANDS.AUTHOR";
         public static final String WEBSITE = "COMMANDS.WEBSITE";
 
@@ -47,6 +49,7 @@ public final class Messages {
             public static final String LOAD = "COMMANDS.HELP_MESSAGES.LOAD";
             public static final String DELETE = "COMMANDS.HELP_MESSAGES.DELETE";
             public static final String INFO = "COMMANDS.HELP_MESSAGES.INFO";
+            public static final String VERSION = "COMMANDS.HELP_MESSAGES.VERSION";
             public static final String LIST = "COMMANDS.HELP_MESSAGES.LIST";
             public static final String HELP = "COMMANDS.HELP_MESSAGES.HELP";
         }
@@ -265,6 +268,10 @@ public final class Messages {
         public static final String NEWEST_VERSION = "ACTION.NEWEST_VERSION";
         public static final String DOWNLOAD_NEW_VERSION = "ACTION.DOWNLOAD_NEW_VERSION";
         public static final String FAILED_CHECK_VERSION = "ACTION.FAILED_CHECK_VERSION";
+    }
+
+    public static String getCommandServerVersion(Player player, String serverVersion) {
+        return I18n.translate(player, COMMANDS.SERVER_VERSION).replace("<server>", serverVersion);
     }
 
     public static String getCommandVersion(Player player, String version, ChatColor color) {

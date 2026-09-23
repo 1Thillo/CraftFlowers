@@ -10,6 +10,9 @@ COMMANDS:
   AUTHOR: "§7作者: §2<author>"
   WEBSITE: "§7網站: §2<website>"
 
+  # /craftflowers version
+  SERVER_VERSION: "§7伺服器: §2<server>"
+
   # /craftflowers save
   NO_PERMISSION_SAVE: "§c你沒有權限!"
   SUCCESS_SAVE: "§7成功保存花盆."
@@ -39,6 +42,7 @@ COMMANDS:
     LOAD: "/craftflowers load <name> §8- §7載入已儲存的花盆"
     DELETE: "/craftflowers delete <name> §8- §7刪除已儲存的花盆"
     INFO: "/craftflowers info §8- §7顯示有關插件的訊息"
+    VERSION: "/craftflowers version §8- §7顯示插件與伺服器版本"
     LIST: "/craftflowers list §8- §7打開保存的花盆列表"
     HELP: "/craftflowers help §8- §7顯示此訊息"
 
