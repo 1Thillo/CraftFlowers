@@ -263,11 +263,6 @@ public final class Messages {
         public static final String MISSING_FOLLOWING_ITEMS = "ACTION.MISSING_FOLLOWING_ITEMS";
         public static final String MISSING_FOLLOWING_ITEMS_LIST = "ACTION.MISSING_FOLLOWING_ITEMS_LIST";
         public static final String NO_PERMISSION_EDIT = "ACTION.NO_PERMISSION_EDIT";
-        public static final String OUTDATED_VERSION = "ACTION.OUTDATED_VERSION";
-        public static final String CURRENT_VERSION = "ACTION.CURRENT_VERSION";
-        public static final String NEWEST_VERSION = "ACTION.NEWEST_VERSION";
-        public static final String DOWNLOAD_NEW_VERSION = "ACTION.DOWNLOAD_NEW_VERSION";
-        public static final String FAILED_CHECK_VERSION = "ACTION.FAILED_CHECK_VERSION";
     }
 
     public static String getCommandServerVersion(Player player, String serverVersion) {
@@ -324,17 +319,5 @@ public final class Messages {
                 .replaceAll("%1", arrow)
                 .replaceAll("%2", flower)
                 .replaceAll("%3", String.valueOf(integer));
-    }
-
-    public static String getActionCurrentVersion(Player player, String version) {
-        return I18n.translate(player, ACTION.CURRENT_VERSION).replaceAll("<version>", version);
-    }
-
-    public static String getActionNewestVersion(Player player, String newVersion) {
-        return I18n.translate(player, ACTION.NEWEST_VERSION).replaceAll("<version>", newVersion);
-    }
-
-    public static String getActionDownloadNewVersion(Player player, String downloadLink) {
-        return I18n.translate(player, ACTION.DOWNLOAD_NEW_VERSION).replaceAll("<link>", downloadLink);
     }
 }

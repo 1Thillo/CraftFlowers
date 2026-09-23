@@ -7,7 +7,6 @@ import cm.ptks.craftflowers.gui.SavedFlowerListGui;
 import cm.ptks.craftflowers.languages.I18n;
 import cm.ptks.craftflowers.languages.Messages;
 import cm.ptks.craftflowers.storage.SavedFlowerPot;
-import cm.ptks.craftflowers.util.version.UpdateChecker;
 import net.md_5.bungee.api.ChatColor;
 
 import org.bukkit.Material;
@@ -56,12 +55,7 @@ public class CraftFlowersCommand implements CommandExecutor, TabCompleter {
 
 
         if (args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("i")) {
-            UpdateChecker versionChecker = plugin.getVersionChecker();
-            if (versionChecker.isOutdated()) {
-                player.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getPluginMeta().getVersion(), ChatColor.RED));
-            } else {
-                player.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getPluginMeta().getVersion(), ChatColor.GREEN));
-            }
+            player.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getPluginMeta().getVersion(), ChatColor.GREEN));
 
             player.sendMessage(CraftFlowers.prefix + Messages.getCommandAuthor(player, plugin.getPluginMeta().getAuthors().get(0)));
             player.sendMessage(CraftFlowers.prefix + Messages.getCommandWebsite(player, plugin.getPluginMeta().getWebsite()));
