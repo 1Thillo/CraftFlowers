@@ -96,7 +96,7 @@ public class FlowerPot {
         if (itemMeta == null) return null;
         if (!itemMeta.getPersistentDataContainer().has(key, PersistentDataType.STRING)) return null;
         String serialized = itemMeta.getPersistentDataContainer().get(key, PersistentDataType.STRING);
-        return parsePot(new JsonParser().parse(Objects.requireNonNull(serialized)).getAsJsonObject());
+        return parsePot(JsonParser.parseString(Objects.requireNonNull(serialized)).getAsJsonObject());
     }
 
     public List<Flower> getFlowers() {
