@@ -4,10 +4,12 @@ import cm.ptks.craftflowers.CraftFlowers;
 import cm.ptks.craftflowers.languages.I18n;
 import cm.ptks.craftflowers.languages.Messages;
 import cm.ptks.craftflowers.util.Text;
+import cm.ptks.craftflowers.util.Text;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -67,27 +69,27 @@ public class FlowerPot {
         ItemMeta itemMeta = itemStack.getItemMeta();
         assert itemMeta != null;
 
-        itemMeta.setDisplayName(CraftFlowers.prefix + I18n.translate(null, Messages.ITEM.FLOWER_POT));
+        itemMeta.displayName(Text.item(CraftFlowers.prefix + I18n.translate(null, Messages.ITEM.FLOWER_POT)));
 
         itemMeta
                 .getPersistentDataContainer()
                 .set(key, PersistentDataType.STRING, serialize().toString());
 
-        itemMeta.setLore(createLore());
+        itemMeta.lore(createLore());
 
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }
 
-    private List<String> createLore() {
-        List<String> lore = new ArrayList<>();
+    private List<Component> createLore() {
+        List<Component> lore = new ArrayList<>();
 
-        lore.add("");
-        lore.add(CraftFlowers.arrow + I18n.translate(null, Messages.FLOWER_INFO.FLOWER_LIST));
+        lore.add(Component.empty());
+        lore.add(Text.item(CraftFlowers.arrow + I18n.translate(null, Messages.FLOWER_INFO.FLOWER_LIST)));
         for (Flower flower : flowers) {
-            lore.add(flower.getDisplayName(null));
+            lore.add(Text.item(flower.getDisplayName(null)));
         }
-        lore.add("");
+        lore.add(Component.empty());
         return lore;
     }
 
