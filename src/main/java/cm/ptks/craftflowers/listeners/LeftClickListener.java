@@ -5,6 +5,7 @@ import cm.ptks.craftflowers.flower.FlowerPot;
 import cm.ptks.craftflowers.gui.CraftFlowersGui;
 import cm.ptks.craftflowers.languages.I18n;
 import cm.ptks.craftflowers.languages.Messages;
+import cm.ptks.craftflowers.util.Text;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,7 +34,7 @@ public class LeftClickListener implements Listener {
             return;
         event.setCancelled(true);
         if (!player.hasPermission("craftflowers.edit")) {
-            player.sendMessage(CraftFlowers.prefix + I18n.translate(player, Messages.ACTION.NO_PERMISSION_EDIT));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.ACTION.NO_PERMISSION_EDIT)));
             return;
         }
         CraftFlowersGui.openGui(player, flowerPot);
