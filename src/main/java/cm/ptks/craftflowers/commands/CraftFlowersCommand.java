@@ -51,13 +51,13 @@ public class CraftFlowersCommand implements CommandExecutor, TabCompleter {
         if (args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("i")) {
             UpdateChecker versionChecker = plugin.getVersionChecker();
             if (versionChecker.isOutdated()) {
-                player.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getDescription().getVersion(), ChatColor.RED));
+                player.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getPluginMeta().getVersion(), ChatColor.RED));
             } else {
-                player.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getDescription().getVersion(), ChatColor.GREEN));
+                player.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getPluginMeta().getVersion(), ChatColor.GREEN));
             }
 
-            player.sendMessage(CraftFlowers.prefix + Messages.getCommandAuthor(player, plugin.getDescription().getAuthors().get(0)));
-            player.sendMessage(CraftFlowers.prefix + Messages.getCommandWebsite(player, plugin.getDescription().getWebsite()));
+            player.sendMessage(CraftFlowers.prefix + Messages.getCommandAuthor(player, plugin.getPluginMeta().getAuthors().get(0)));
+            player.sendMessage(CraftFlowers.prefix + Messages.getCommandWebsite(player, plugin.getPluginMeta().getWebsite()));
             return true;
         }
 

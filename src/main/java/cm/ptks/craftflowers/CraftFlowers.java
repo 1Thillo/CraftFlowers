@@ -76,7 +76,7 @@ public class CraftFlowers extends JavaPlugin {
             ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
             console.sendMessage(ChatColor.DARK_RED + "------------------[craftFlowers]------------------");
             console.sendMessage(ChatColor.RED + "    Plugin is outdated!");
-            console.sendMessage(ChatColor.DARK_RED + "    Current version: " + ChatColor.RED + this.getDescription()
+            console.sendMessage(ChatColor.DARK_RED + "    Current version: " + ChatColor.RED + this.getPluginMeta()
                     .getVersion() + ChatColor.DARK_GREEN + " The newest version: " + ChatColor.GREEN + this.versionChecker.getNewestVersion());
             console.sendMessage(ChatColor.GOLD + "Download new version: " + ChatColor.YELLOW
                     + "https://www.spigotmc.org/resources/craftflowers-1-16-port-allowed-by-main-developer.82407/");
