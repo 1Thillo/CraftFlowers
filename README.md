@@ -19,7 +19,6 @@ SpigotMC: https://www.spigotmc.org/resources/craftflowers-1-16-1-17-port.82407/
 `craftflowers.save` - allows save flower  
 `craftflowers.load` - allows load flower  
 `craftflowers.delete` - allow remove flower  
-`craftflowers.admin` - currently for notifications about new versions of the plugin  
 
 # About the Code
 
