@@ -2,7 +2,7 @@ name: craftFlowers
 main: cm.ptks.craftflowers.CraftFlowers
 version: ${version}
 author: patrykss & MenschenToaster
-api-version: 1.16
+api-version: '26.2'
 website: https://github.com/MenschenToaster/CraftFlowers
 commands:
   craftflowers:

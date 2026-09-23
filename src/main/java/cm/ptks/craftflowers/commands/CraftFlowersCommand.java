@@ -33,6 +33,13 @@ public class CraftFlowersCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command cmd, @NotNull String label, String[] args) {
+        if (args.length > 0 && (args[0].equalsIgnoreCase("version") || args[0].equalsIgnoreCase("v"))) {
+            Player player = commandSender instanceof Player ? (Player) commandSender : null;
+            commandSender.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getPluginMeta().getVersion(), ChatColor.GREEN));
+            commandSender.sendMessage(CraftFlowers.prefix + Messages.getCommandServerVersion(player, plugin.getServer().getName() + " " + plugin.getServer().getVersion()));
+            return true;
+        }
+
         if (!(commandSender instanceof Player)) {
             return false;
         }
@@ -51,13 +58,13 @@ public class CraftFlowersCommand implements CommandExecutor, TabCompleter {
         if (args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("i")) {
             UpdateChecker versionChecker = plugin.getVersionChecker();
             if (versionChecker.isOutdated()) {
-                player.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getDescription().getVersion(), ChatColor.RED));
+                player.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getPluginMeta().getVersion(), ChatColor.RED));
             } else {
-                player.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getDescription().getVersion(), ChatColor.GREEN));
+                player.sendMessage(CraftFlowers.prefix + Messages.getCommandVersion(player, plugin.getPluginMeta().getVersion(), ChatColor.GREEN));
             }
 
-            player.sendMessage(CraftFlowers.prefix + Messages.getCommandAuthor(player, plugin.getDescription().getAuthors().get(0)));
-            player.sendMessage(CraftFlowers.prefix + Messages.getCommandWebsite(player, plugin.getDescription().getWebsite()));
+            player.sendMessage(CraftFlowers.prefix + Messages.getCommandAuthor(player, plugin.getPluginMeta().getAuthors().get(0)));
+            player.sendMessage(CraftFlowers.prefix + Messages.getCommandWebsite(player, plugin.getPluginMeta().getWebsite()));
             return true;
         }
 
@@ -158,6 +165,7 @@ public class CraftFlowersCommand implements CommandExecutor, TabCompleter {
             player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.LOAD));
             player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.DELETE));
             player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.INFO));
+            player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.VERSION));
             player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.LIST));
             player.sendMessage(CraftFlowers.prefix + ChatColor.GREEN + I18n.translate(player, Messages.COMMANDS.HELP_MESSAGES.HELP));
         }
@@ -170,6 +178,6 @@ public class CraftFlowersCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         if (args.length > 1)
             return null;
-        return Stream.of("help", "info", "list", "load", "delete", "save").filter(s -> s.startsWith(args[0])).collect(Collectors.toList());
+        return Stream.of("help", "info", "version", "list", "load", "delete", "save").filter(s -> s.startsWith(args[0])).collect(Collectors.toList());
     }
 }

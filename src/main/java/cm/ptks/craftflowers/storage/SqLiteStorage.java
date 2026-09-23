@@ -40,10 +40,9 @@ public class SqLiteStorage implements FlowerStorage {
             preparedStatement.setString(1, uuid.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            JsonParser parser = new JsonParser();
             while (resultSet.next()) {
                 SavedFlowerPot savedFlowerPot = new SavedFlowerPot(resultSet.getString("name"),
-                        FlowerPot.parsePot(parser.parse(resultSet.getString("data")).getAsJsonObject()),
+                        FlowerPot.parsePot(JsonParser.parseString(resultSet.getString("data")).getAsJsonObject()),
                         uuid, resultSet.getLong("createdAt"));
                 flowerPots.add(savedFlowerPot);
             }
@@ -100,7 +99,7 @@ public class SqLiteStorage implements FlowerStorage {
                 return null;
 
             return new SavedFlowerPot(resultSet.getString("name"),
-                    FlowerPot.parsePot(new JsonParser().parse(resultSet.getString("data")).getAsJsonObject()),
+                    FlowerPot.parsePot(JsonParser.parseString(resultSet.getString("data")).getAsJsonObject()),
                     player, resultSet.getLong("createdAt"));
         } catch (SQLException e) {
             e.printStackTrace();

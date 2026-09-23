@@ -10,6 +10,9 @@ COMMANDS:
   AUTHOR: "§7Author: §2<author>"
   WEBSITE: "§7Website: §2<website>"
 
+  # /craftflowers version
+  SERVER_VERSION: "§7Server: §2<server>"
+
   # /craftflowers save
   NO_PERMISSION_SAVE: "§cYou don't have permission!"
   SUCCESS_SAVE: "Successfully saved flowerpot."
@@ -39,6 +42,7 @@ COMMANDS:
     LOAD: "/craftflowers load <name> §8- §7Loads a saved flower"
     DELETE: "/craftflowers delete <name> §8- §7Removes the saved flower"
     INFO: "/craftflowers info §8- §7Shows info about the plugin"
+    VERSION: "/craftflowers version §8- §7Shows the plugin and server version"
     LIST: "/craftflowers list §8- §7Opens a saved flower list gui"
     HELP: "/craftflowers help §8- §7Shows this text"
 

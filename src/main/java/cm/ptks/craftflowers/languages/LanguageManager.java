@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 
 import org.bukkit.entity.Player;
@@ -104,7 +105,7 @@ public class LanguageManager {
             return defaultLanguage;
         
         for(Language language : this.languages) {
-            if(language.isLanguage(player.getLocale())) {
+            if(language.isLanguage(player.locale().toString().toLowerCase(Locale.ROOT))) {
                 return language;
             }
         } 

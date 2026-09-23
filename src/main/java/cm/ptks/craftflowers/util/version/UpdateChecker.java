@@ -20,7 +20,7 @@ public class UpdateChecker {
 
     public UpdateChecker(CraftFlowers plugin) {
         this.plugin = plugin;
-        this.currentVersion = FlowersVersion.read(plugin.getDescription().getVersion());
+        this.currentVersion = FlowersVersion.read(plugin.getPluginMeta().getVersion());
 
         plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, () -> this.newestVersion = fetchNewestVersion(),
                 TimeUnit.HOURS.toSeconds(24) * 20, TimeUnit.HOURS.toSeconds(24) * 20);
@@ -37,7 +37,7 @@ public class UpdateChecker {
         } catch (Exception var3) {
             var3.printStackTrace();
             Bukkit.getServer().getConsoleSender().sendMessage(CraftFlowers.prefix + ChatColor.RED + Messages.ACTION.FAILED_CHECK_VERSION);
-            return FlowersVersion.read(plugin.getDescription().getVersion());
+            return FlowersVersion.read(plugin.getPluginMeta().getVersion());
         }
     }
 

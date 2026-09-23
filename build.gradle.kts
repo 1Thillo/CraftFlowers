@@ -1,7 +1,7 @@
 plugins {
     java
-    id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("xyz.jpenilla.run-paper") version "2.1.0"
+    id("com.gradleup.shadow") version "9.6.1"
+    id("xyz.jpenilla.run-paper") version "3.1.0"
 }
 
 group = "at.toastiii.craftflowers"
@@ -9,37 +9,43 @@ version = "1.2.5"
 
 repositories {
     mavenCentral()
-    maven(url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/"))
-    maven(url = uri("https://maven.enginehub.org/repo/"))
-    maven(url = uri("https://libraries.minecraft.net"))
-
+    maven(url = uri("https://repo.papermc.io/repository/maven-public/"))
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT")
-    compileOnly("com.mojang:authlib:1.6.25")
-    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit:2.7.0")
+    compileOnly("io.papermc.paper:paper-api:26.2.build.128-stable")
+    compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Bukkit:2.15.3")
     implementation("fr.minuskube.inv:smart-invs:1.2.7") {
         isTransitive = false
     }
 }
 
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
+}
+
 tasks.withType<ProcessResources> {
+    val pluginVersion = project.version.toString()
+    inputs.property("version", pluginVersion)
     filesMatching("plugin.yml") {
-        expand(mapOf("version" to project.version))
+        expand(mapOf("version" to pluginVersion))
     }
 }
 
 tasks {
     shadowJar {
+        archiveClassifier.set("")
         relocate("fr.minuskube.inv", "cm.ptks.craftflowers.smartinvs")
+    }
+    jar {
+        archiveClassifier.set("plain")
     }
     build {
         dependsOn(shadowJar)
     }
     compileJava {
         options.encoding = Charsets.UTF_8.name()
-        options.release.set(17)
+        options.release.set(25)
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()
@@ -51,6 +57,6 @@ tasks {
 
 tasks {
     runServer {
-        minecraftVersion("1.21.4")
+        minecraftVersion("26.2")
     }
 }
