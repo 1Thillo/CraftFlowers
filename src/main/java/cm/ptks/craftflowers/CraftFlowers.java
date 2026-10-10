@@ -7,9 +7,9 @@ import cm.ptks.craftflowers.listeners.BlockPlaceListener;
 import cm.ptks.craftflowers.listeners.LeftClickListener;
 import cm.ptks.craftflowers.storage.FlowerStorage;
 import cm.ptks.craftflowers.storage.SqLiteStorage;
+import cm.ptks.craftflowers.util.Text;
 import fr.minuskube.inv.InventoryManager;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -49,10 +49,8 @@ public class CraftFlowers extends JavaPlugin {
         saveConfig();
         saveDefaultConfig();
 
-        CraftFlowers.prefix = ChatColor.translateAlternateColorCodes('&',
-                Objects.requireNonNull(getConfig().getString("prefix")));
-        CraftFlowers.arrow = ChatColor.translateAlternateColorCodes('&',
-                Objects.requireNonNull(getConfig().getString("arrow")));
+        CraftFlowers.prefix = Text.translateAmpersand(Objects.requireNonNull(getConfig().getString("prefix")));
+        CraftFlowers.arrow = Text.translateAmpersand(Objects.requireNonNull(getConfig().getString("arrow")));
 
         if (Objects.equals(getConfig().getString("storage.type"), "sqlite")) {
             this.flowerStorage = new SqLiteStorage(new File(getDataFolder(), "database.db"));

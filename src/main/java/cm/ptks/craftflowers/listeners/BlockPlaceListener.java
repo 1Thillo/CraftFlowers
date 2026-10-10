@@ -7,6 +7,7 @@ import cm.ptks.craftflowers.flower.Flower;
 import cm.ptks.craftflowers.flower.FlowerPot;
 import cm.ptks.craftflowers.languages.I18n;
 import cm.ptks.craftflowers.languages.Messages;
+import cm.ptks.craftflowers.util.Text;
 import com.fastasyncworldedit.core.FaweAPI;
 import com.fastasyncworldedit.core.util.TaskManager;
 import com.sk89q.worldedit.EditSession;
@@ -51,7 +52,7 @@ public class BlockPlaceListener implements Listener {
             return;
         event.setCancelled(true);
         if (!player.hasPermission("craftflowers.place")) {
-            player.sendMessage(CraftFlowers.prefix + I18n.translate(player, Messages.ACTION.NO_PERMISSION_PLACE));
+            player.sendMessage(Text.prefixed(I18n.translate(player, Messages.ACTION.NO_PERMISSION_PLACE)));
             return;
         }
 
@@ -74,8 +75,8 @@ public class BlockPlaceListener implements Listener {
                 missingFlowerMap.put(flower.getDisplayName(player), integer);
             }
             if (!missingFlowerMap.isEmpty()) {
-                player.sendMessage(CraftFlowers.prefix + I18n.translate(player, Messages.ACTION.MISSING_FOLLOWING_ITEMS));
-                missingFlowerMap.forEach((flower, integer) -> player.sendMessage(Messages.getActionMissingFollowingItemsList(player, CraftFlowers.arrow, flower, integer)));
+                player.sendMessage(Text.prefixed(I18n.translate(player, Messages.ACTION.MISSING_FOLLOWING_ITEMS)));
+                missingFlowerMap.forEach((flower, integer) -> player.sendMessage(Text.legacy(Messages.getActionMissingFollowingItemsList(player, CraftFlowers.arrow, flower, integer))));
                 return;
             }
 
